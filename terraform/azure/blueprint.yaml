@@ -40,7 +40,7 @@ inputs:
   location:
     type: string
     display_label: Location
-    default: https://github.com/cloudify-community/tf-source/archive/refs/heads/main.zip
+    default: https://github.com/szpotona/tf-source/archive/refs/heads/main.zip
 
   source_path:
     type: string
@@ -51,6 +51,11 @@ inputs:
     type: string
     display_label: Prefix
     default: cfy
+
+  machine_type:
+    type: string
+    display_label: Machine Type
+    default: Standard_F2
 
 node_templates:
 
@@ -73,6 +78,7 @@ node_templates:
           admin_user: { get_input: agent_user }
           admin_key_public: { get_attribute: [agent_key, public_key_export] }
           prefix: { get_input: prefix }
+          machine_type: { get_input: machine_type }
     relationships:
       - target: terraform
         type: cloudify.terraform.relationships.run_on_host
